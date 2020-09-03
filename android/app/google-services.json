@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "816258375686",
+    "firebase_url": "https://awsomechat-79750.firebaseio.com",
+    "project_id": "awsomechat-79750",
+    "storage_bucket": "awsomechat-79750.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:816258375686:android:2d2b34fd814d3607476387",
+        "android_client_info": {
+          "package_name": "com.flutterdev.awsome_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "816258375686-tihqoalni3dko0p7gtes9o6bs0c76hel.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm8DJsaX5eLuGlhFSQxRBN7ZHD9Z7DEsM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "816258375686-tihqoalni3dko0p7gtes9o6bs0c76hel.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
