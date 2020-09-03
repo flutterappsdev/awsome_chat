@@ -19,13 +19,34 @@ class _AuthFormState extends State<AuthForm> {
             child: Column(
               children: [
                 TextFormField(
+                  validator:(value){
+                    if(value.isEmpty || value.contains('@'))
+                      {
+                        return 'Please enter a valid emailaddress';
+                      }
+                    return null;
+                  },
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(labelText: 'User email'),
                 ),
                 TextFormField(
+                  validator:(value){
+                    if(value.isEmpty || value.length < 4 )
+                    {
+                      return 'Please enter a four charchter username';
+                    }
+                    return null;
+                  },
                   decoration: InputDecoration(labelText: 'Username'),
                 ),
                 TextFormField(
+                  validator:(value){
+                    if(value.isEmpty || value.length < 4 )
+                    {
+                      return 'Please enter a Seven charchter password';
+                    }
+                    return null;
+                  },
                   obscureText: true,
                   decoration: InputDecoration(labelText: 'Password'),
                 ),
