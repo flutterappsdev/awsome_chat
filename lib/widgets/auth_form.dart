@@ -8,6 +8,15 @@ class AuthForm extends StatefulWidget {
 }
 
 class _AuthFormState extends State<AuthForm> {
+  final _fromKey = GlobalKey<FormState>();
+  void _trySave(){
+    final isValid = _fromKey.currentState.validate();
+    if(isValid)
+      {
+        _fromKey.currentState.save();
+      }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -16,11 +25,12 @@ class _AuthFormState extends State<AuthForm> {
         child: SingleChildScrollView(
           padding: EdgeInsets.all(16),
           child: Form(
+            key: _fromKey,
             child: Column(
               children: [
                 TextFormField(
                   validator:(value){
-                    if(value.isEmpty || value.contains('@'))
+                    if(value.isEmpty || !value.contains('@'))
                       {
                         return 'Please enter a valid emailaddress';
                       }
@@ -55,7 +65,7 @@ class _AuthFormState extends State<AuthForm> {
                 ),
                 RaisedButton(
                   child: Text('Login'),
-                  onPressed: () {},
+                  onPressed: _trySave,
                 ),
                 FlatButton(
                   textColor: Theme.of(context).primaryColor,
