@@ -9,11 +9,19 @@ class AuthForm extends StatefulWidget {
 
 class _AuthFormState extends State<AuthForm> {
   final _fromKey = GlobalKey<FormState>();
+  var isLogin=true;
+  var _userEmail= '';
+  var _userName='';
+  var _userPassword='';
+
   void _trySave(){
     final isValid = _fromKey.currentState.validate();
+    FocusScope.of(context).unfocus();
     if(isValid)
       {
         _fromKey.currentState.save();
+        print(_userPassword);
+
       }
   }
 
@@ -21,7 +29,7 @@ class _AuthFormState extends State<AuthForm> {
   Widget build(BuildContext context) {
     return Center(
       child: Card(
-        margin: EdgeInsets.all(10),
+        margin: EdgeInsets.all(15),
         child: SingleChildScrollView(
           padding: EdgeInsets.all(16),
           child: Form(
@@ -29,6 +37,7 @@ class _AuthFormState extends State<AuthForm> {
             child: Column(
               children: [
                 TextFormField(
+                  key : ValueKey('email'),
                   validator:(value){
                     if(value.isEmpty || !value.contains('@'))
                       {
@@ -38,8 +47,14 @@ class _AuthFormState extends State<AuthForm> {
                   },
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(labelText: 'User email'),
+                  onSaved: (txtval){
+                    _userEmail=txtval;
+                  },
+
                 ),
+                if(!isLogin)
                 TextFormField(
+                  key : ValueKey('username'),
                   validator:(value){
                     if(value.isEmpty || value.length < 4 )
                     {
@@ -48,8 +63,12 @@ class _AuthFormState extends State<AuthForm> {
                     return null;
                   },
                   decoration: InputDecoration(labelText: 'Username'),
+                  onSaved: (txtval){
+                    _userName=txtval;
+                  },
                 ),
                 TextFormField(
+                  key : ValueKey('password'),
                   validator:(value){
                     if(value.isEmpty || value.length < 4 )
                     {
@@ -59,18 +78,26 @@ class _AuthFormState extends State<AuthForm> {
                   },
                   obscureText: true,
                   decoration: InputDecoration(labelText: 'Password'),
+                  onSaved: (txtval){
+                    _userPassword=txtval;
+                  },
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 RaisedButton(
-                  child: Text('Login'),
+                  child: Text( isLogin ? 'Login' : 'Signup'),
                   onPressed: _trySave,
                 ),
                 FlatButton(
                   textColor: Theme.of(context).primaryColor,
-                  child: Text('Register'),
-                  onPressed: () {},
+                  child: Text(isLogin ? 'Create new account' : 'I am already have an account'),
+                  onPressed: () {
+                    setState(() {
+                      isLogin =!isLogin;
+                    });
+
+                  },
                 )
               ],
             ),
