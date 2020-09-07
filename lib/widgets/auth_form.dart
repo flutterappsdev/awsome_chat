@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class AuthForm extends StatefulWidget {
- final void Function(String email,String password,String username,bool isLogin) submitAuthForm ;
- AuthForm(this.submitAuthForm);
+ var isLoading;
+  final void Function(String email,String password,String username,bool isLogin,BuildContext context) submitAuthForm ;
+ AuthForm(this.submitAuthForm,this.isLoading);
 
 
   @override
@@ -13,7 +14,7 @@ class AuthForm extends StatefulWidget {
 
 class _AuthFormState extends State<AuthForm> {
   final _fromKey = GlobalKey<FormState>();
-  var isLogin=true;
+  var isAlreadyUser=true;
   var _userEmail= '';
   var _userName='';
   var _userPassword='';
@@ -25,7 +26,7 @@ class _AuthFormState extends State<AuthForm> {
       {
         _fromKey.currentState.save();
         print(_userPassword);
-        widget.submitAuthForm(_userEmail,_userPassword,_userName,isLogin);
+        widget.submitAuthForm(_userEmail.trim(),_userPassword.trim(),_userName.trim(),isAlreadyUser,context);
       }
   }
 
@@ -56,7 +57,7 @@ class _AuthFormState extends State<AuthForm> {
                   },
 
                 ),
-                if(!isLogin)
+                if(!isAlreadyUser)
                 TextFormField(
                   key : ValueKey('username'),
                   validator:(value){
@@ -89,16 +90,18 @@ class _AuthFormState extends State<AuthForm> {
                 SizedBox(
                   height: 20,
                 ),
+                widget.isLoading ? CircularProgressIndicator() :
                 RaisedButton(
-                  child: Text( isLogin ? 'Login' : 'Signup'),
+                  child: Text( isAlreadyUser ? 'Login' : 'Signup'),
                   onPressed: _trySave,
                 ),
+                widget.isLoading ? CircularProgressIndicator() :
                 FlatButton(
                   textColor: Theme.of(context).primaryColor,
-                  child: Text(isLogin ? 'Create new account' : 'I am already have an account'),
+                  child: Text(isAlreadyUser ? 'Create new account' : 'I am already have an account'),
                   onPressed: () {
                     setState(() {
-                      isLogin =!isLogin;
+                      isAlreadyUser =!isAlreadyUser;
                     });
 
                   },

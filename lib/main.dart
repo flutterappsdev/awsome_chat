@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import './screens/chat_screen.dart';
 import './screens/auth_screen.dart';
 
@@ -39,7 +40,15 @@ class ChatHome extends StatelessWidget {
       appBar: AppBar(
         title: Text('Awsome Chat'),
       ),
-      body: AuthScreen(),
+      body: StreamBuilder(
+        stream: FirebaseAuth.instance.onAuthStateChanged,
+        builder: (ctx,streamSnapShot){
+          if(streamSnapShot.hasData){
+            return ChatScreen();
+          }
+          return AuthScreen();
+        },
+      )
     );
   }
 }
