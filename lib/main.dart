@@ -36,11 +36,7 @@ class ChatApp extends StatelessWidget {
 class ChatHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Awsome Chat'),
-      ),
-      body: StreamBuilder(
+    return StreamBuilder(
         stream: FirebaseAuth.instance.onAuthStateChanged,
         builder: (ctx,streamSnapShot){
           if(streamSnapShot.hasData){
@@ -48,7 +44,7 @@ class ChatHome extends StatelessWidget {
           }
           return AuthScreen();
         },
-      )
-    );
+      );
+
   }
 }
